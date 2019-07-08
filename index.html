@@ -13,7 +13,7 @@
       <h2 class="text-center bg-info text-white py-3">My Todo APP</h2>
       <div class="container mt-3">
 
-        <form class="form-inline my-2" v-on:submit.prevent="addTodo">
+        <form class="form-inline my-2" @submit.prevent="addTodo">
           <div class="add-form form-group">
             <span>何する？</span><input type="text" class="form-control mx-3" ref="content">
             <button type="submit" class="btn btn-primary mt-1">追加</button>
@@ -30,7 +30,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="todo in todos" v-bind:key="todo.id">
+            <tr v-for="todo in todos" :key="todo.id">
               <td class="button">
                 <button type="button" class="close" @click="removeTodo(todo)">
                   <span>×</span>
@@ -40,7 +40,7 @@
               <td>{{ todo.id }}</td>
               <td>{{ todo.comment }}</td>
               <td class="state">
-                <button class="btn" v-bind:class="[todo.status == '進行中' ? 'btn-info' : 'btn-success']" v-on:click="changeTodoStatus(todo)">
+                <button class="btn" :class="[todo.status == '進行中' ? 'btn-info' : 'btn-success']" @click="changeTodoStatus(todo)">
                   <span>{{ todo.status }}</span>
                 </button>
               </td>
