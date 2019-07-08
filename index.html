@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>todo_app</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <div id="app">
+      <!-- built files will be auto injected -->
+      <h2 class="text-center bg-info text-white py-3">My Todo APP</h2>
+      <div class="container mt-3">
+
+        <form class="form-inline my-2" v-on:submit.prevent="addTodo">
+          <div class="add-form form-group">
+            <span>何する？</span><input type="text" class="form-control mx-3" ref="content">
+            <button type="submit" class="btn btn-primary mt-1">追加</button>
+          </div>
+        </form>
+          
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class="button"></th>
+              <th scope="col" class="id">＃</th>
+              <th scope="col" class="content">タスク</th>
+              <th scope="col" class="status">status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="todo in todos" v-bind:key="todo.id">
+              <td class="button">
+                <button type="button" class="close" @click="removeTodo(todo)">
+                  <span>×</span>
+                </button>
+              </td>
+
+              <td>{{ todo.id }}</td>
+              <td>{{ todo.comment }}</td>
+              <td class="state">
+                <button class="btn" v-bind:class="[todo.status == '進行中' ? 'btn-info' : 'btn-success']" v-on:click="changeTodoStatus(todo)">
+                  <span>{{ todo.status }}</span>
+                </button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+        
+        <div v-if="todos.filter(todo => todo.status == '進行中').length==0">
+          <span>全部完了！お疲れ様</span>
+        </div>
+        <div v-if="todos.filter(todo => todo.status == '進行中').length>0">
+          <span>ほら、あと{{ todos.filter(todo => todo.status == '進行中').length }}個だよ！頑張ろう！</span>
+        </div>
+        
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
