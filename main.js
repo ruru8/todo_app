@@ -19,23 +19,22 @@ var todoStorage = {
 const app = new Vue({
   el: '#app',
   data: {
-    message: 'Hello Vue!',
     todos: [],
+    content: '',
   },
   methods: {
     // todoを追加
     addTodo: function (event, value) {
-      var content = this.$refs.content
-      if (!content.value.length) {
+      if (!this.content.length) {
         return
       }
       this.todos.push({
         id: todoStorage.uid++,
-        comment: content.value,
-        status: '進行中'
+        comment: this.content,
+        status: 0
       })
       // フォームを空に
-      content.value = ''
+      this.content = ''
     },
 
     // todoを削除
@@ -45,12 +44,8 @@ const app = new Vue({
     },
 
     // 状態変更
-    changeTodoStatus: function (todo) {
-      if (todo.status == '進行中') {
-        todo.status = '完了'
-      } else {
-        todo.status = '進行中'
-      }
+    changeTodoStatus: function (todo, status) {
+      status == 0 ? todo.status = 0 : todo.status = 1
     },
   },
   watch: {

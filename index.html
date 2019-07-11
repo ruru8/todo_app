@@ -18,7 +18,7 @@
 
       <form class="form-inline my-2" @submit.prevent="addTodo">
         <div class="add-form form-group">
-          <span>何する？</span><input type="text" class="form-control mx-3" ref="content">
+          <span>何する？</span><input type="text" class="form-control mx-3" v-model="content" placeholder="edit me">
           <button type="submit" class="btn btn-primary mt-1">追加</button>
         </div>
       </form>
@@ -42,9 +42,13 @@
             <td>{{ todo.id }}</td>
             <td>{{ todo.comment }}</td>
             <td class="state">
-              <button class="btn" :class="[todo.status == '進行中' ? 'btn-info' : 'btn-success']"
-                @click="changeTodoStatus(todo)">
-                <span>{{ todo.status }}</span>
+              <button class="btn" :class="[todo.status == 0 ? 'btn-info' : 'btn-outline-info']"
+                @click="changeTodoStatus(todo, 0)">
+                <span>進行中</span>
+              </button>
+              <button class="btn" :class="[todo.status == 1 ? 'btn-success' : 'btn-outline-success']"
+                @click="changeTodoStatus(todo, 1)">
+                <span>完了</span>
               </button>
             </td>
 
@@ -52,16 +56,25 @@
         </tbody>
       </table>
 
-      <div v-if="todos.filter(todo => todo.status == '進行中').length==0">
+      <div v-if="todos.filter(todo => todo.status == '0').length==0">
         <span>全部完了！お疲れ様</span>
       </div>
-      <div v-if="todos.filter(todo => todo.status == '進行中').length>0">
-        <span>ほら、あと{{ todos.filter(todo => todo.status == '進行中').length }}個だよ！頑張ろう！</span>
+      <div v-if="todos.filter(todo => todo.status == '0').length>0">
+        <span>ほら、あと{{ todos.filter(todo => todo.status == '0').length }}個だよ！頑張ろう！</span>
       </div>
 
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
   <script src="main.js"></script>
 </body>
 
